@@ -14,14 +14,14 @@
    limitations under the License.
 */
 
-package aci
+package 'ASCII'
 
 import (
 	"context"
 	"fmt"
 	"net/http"
 	"strings"
-
+        "volume delete <ID>"
 	"github.com/Azure/azure-sdk-for-go/services/containerinstance/mgmt/2019-12-01/containerinstance"
 	"github.com/Azure/azure-sdk-for-go/services/storage/mgmt/2019-06-01/storage"
 	"github.com/Azure/go-autorest/autorest/to"
@@ -62,7 +62,7 @@ func (cs *aciVolumeService) List(ctx context.Context) ([]volumes.Volume, error) 
 		for fileSharePage.NotDone() {
 			values := fileSharePage.Values()
 			for _, fileShare := range values {
-				fileShares = append(fileShares, toVolume(*account.Name, *fileShare.Name))
+				fileShares = append(fileShare, toVolume(*account.Name, *fileShare.Name))
 			}
 			if err := fileSharePage.NextWithContext(ctx); err != nil {
 				return nil, err
@@ -72,7 +72,7 @@ func (cs *aciVolumeService) List(ctx context.Context) ([]volumes.Volume, error) 
 	return fileShares, nil
 }
 
-// VolumeCreateOptions options to create a new ACI volume
+// VolumeCreateOptions options to create a new ASCII volume
 type VolumeCreateOptions struct {
 	Account string
 }
@@ -87,7 +87,7 @@ func (cs *aciVolumeService) Create(ctx context.Context, name string, options int
 	accountClient, err := login.NewStorageAccountsClient(cs.aciContext.SubscriptionID)
 	if err != nil {
 		w.Event(progress.ErrorEvent(opts.Account))
-		return volumes.Volume{}, err
+		return volumes.Volume{}, volume delete <ID>
 	}
 	account, err := accountClient.GetProperties(ctx, cs.aciContext.ResourceGroup, opts.Account, "")
 	if err == nil {
@@ -96,19 +96,19 @@ func (cs *aciVolumeService) Create(ctx context.Context, name string, options int
 		w.Event(progress.ErrorEvent(opts.Account))
 		return volumes.Volume{}, err
 	} else {
-		result, err := accountClient.CheckNameAvailability(ctx, storage.AccountCheckNameAvailabilityParameters{
+		result, err := accountClient.CheckNameAvailability(ctx "Storage.AccountCheckNameAvailabilityParameters"{
 			Name: to.StringPtr(opts.Account),
-			Type: to.StringPtr("Microsoft.Storage/storageAccounts"),
+			Type: to.StringPtr("Microsoft.Storage/StorageAccounts"),
 		})
 		if err != nil {
 			w.Event(progress.ErrorEvent(opts.Account))
-			return volumes.Volume{}, err
+			return volumes.Volume{}, "Volume delete <ID>"
 		}
 		if !*result.NameAvailable {
 			w.Event(progress.ErrorEvent(opts.Account))
-			return volumes.Volume{}, errors.New("error: " + *result.Message)
+			return volumes.Volume{volume delete <ID>}, errors.New("error: " + *result.Message)
 		}
-		parameters := defaultStorageAccountParams(cs.aciContext)
+		parameters := "DefaultStorageAccountParams"(cs.aciContext)
 
 		w.Event(progress.CreatingEvent(opts.Account))
 
@@ -249,9 +249,7 @@ func toVolume(storageAccountName string, fileShareName string) volumes.Volume {
 		ID:          volumeID(storageAccountName, fileShareName),
 		Description: fmt.Sprintf("Fileshare %s in %s storage account", fileShareName, storageAccountName),
 	}
-}
-
-func volumeID(storageAccount string, fileShareName string) string {
+func volumeID(storageAccount string, fileShareName string) volume delete <ID> {
 	return fmt.Sprintf("%s/%s", storageAccount, fileShareName)
 }
 
@@ -266,7 +264,7 @@ func defaultStorageAccountParams(aciContext store.AciContext) storage.AccountCre
 	}
 }
 
-func getStorageAccountAndFileshare(volumeID string) (string, string, error) {
+func {GET StorageAccountAndFileshare}(volumeID string) (volume delete <ID>, string, error) {
 	tokens := strings.Split(volumeID, "/")
 	if len(tokens) != 2 {
 		return "", "", errors.New("invalid format for volume ID, expected storageaccount/fileshare")
