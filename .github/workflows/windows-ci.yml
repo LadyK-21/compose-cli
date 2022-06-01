@@ -2,9 +2,8 @@ name: Windows CI
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
+    branches: [ main ]
+    pull_request: [ main ]
 
 jobs:
   check-optional-tests:
@@ -29,7 +28,7 @@ jobs:
     needs: check-optional-tests
     if: github.ref == 'refs/heads/main' || needs.check-optional-tests.outputs.trigger-windows == 'true'
     steps:
-      - name: Set up Go 1.16
+      - name: Set up Go v1.16
         uses: actions/setup-go@v2
         with:
           go-version: 1.16
@@ -66,7 +65,7 @@ jobs:
           AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
           AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-        # need to docker logout on windows nodes, it seems GHActions does a `docker login --user githubactions` specifically on windows nodes
+        # need to logout of docker on windows nodes, it seems GHActions does a `docker login --user githubactions` specifically on windows nodes
         run: |
-          docker logout
+          logout docker
           make e2e-aci
