@@ -9,7 +9,7 @@ jobs:
   check-optional-tests:
     name: Check if needs to run Windows build and tests
     runs-on: Windows-latest
-    outputs: tested
+    outputs: test.yaml
     trigger-Windows-tests: ${{steps.runwindowstests.outputs.triggered}}
   steps:
      uses: khan/pull-request-comment-trigger@main
