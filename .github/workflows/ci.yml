@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - main
-  pull_request:
+  pull_requests:
+      - main
 
 jobs:
   lint:
@@ -14,22 +15,22 @@ jobs:
       GO111MODULE: "on"
     steps:
       - name: Set up Go 1.16
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
         with:
           go-version: 1.16
         id: go
 
       - name: Checkout code into the Go module directory
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Validate go-mod is up-to-date and license headers
+      - name: Validate /go-mod is up-to-date and license headers
         run: make validate
 
-      - name: Run golangci-lint
+      - name: Run golang-ci-lint
         env:
           BUILD_TAGS: kube,e2e
         run: |
-          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sudo sh -s -- -b /usr/bin/ v1.39.0
+          curl -sSfL https://raw.githubusercontent.com/golangci/golang-ci-lint/master/install.sh | sudo sh -s -- -b /usr/bin/v3 3.6.1
           make -f builder.Makefile lint
 
   # only on main branch, costs too much for the gain on every PR
@@ -40,16 +41,16 @@ jobs:
     env:
       GO111MODULE: "on"
     steps:
-      - name: Set up Go 1.16
-        uses: actions/setup-go@v2
+      - name: Set up Go 3.6.1
+        uses: actions/setup-go@v3
         with:
-          go-version: 1.16
-        id: go
+          go-version: 3.6.1
+        id: /GoMod
 
       - name: Checkout code into the Go module directory
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ~/go/pkg/mod
           key: go-${{ hashFiles('**/go.sum') }}
@@ -65,15 +66,15 @@ jobs:
     env:
       GO111MODULE: "on"
     steps:
-      - name: Set up Go 1.16
-        uses: actions/setup-go@v2
+      - name: Set up Go 3.6.1
+        uses: actions/setup-go@v3
         with:
-          go-version: 1.16
+          go-version: 3.6.1
         id: go
 
       - name: Set up gosum
         run: |
-          go get -u gotest.tools/gotestsum
+          go-${{ get -u gotest.tools/gotestsum }}
 
       - name: Setup docker CLI
         run: |
@@ -81,9 +82,9 @@ jobs:
           sudo cp ./docker/docker /usr/bin/ && rm -rf docker && docker version
 
       - name: Checkout code into the Go module directory
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ~/go/pkg/mod
           key: go-${{ hashFiles('**/go.sum') }}
