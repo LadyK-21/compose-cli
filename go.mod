@@ -1,6 +1,6 @@
 module github.com/docker/compose-cli
 
-go 1.16
+go 1.17
 
 require (
 	github.com/AlecAivazis/survey/v2 v2.2.3
@@ -13,15 +13,15 @@ require (
 	github.com/Azure/go-autorest/autorest/azure/cli v0.4.2
 	github.com/Azure/go-autorest/autorest/date v0.3.0
 	github.com/Azure/go-autorest/autorest/to v0.4.0
-	github.com/Azure/go-autorest/autorest/validation v0.2.0 // indirect
+	github.com/Azure/go-autorest/autorest/validation v2.0.1 // indirect
 	github.com/Microsoft/go-winio v0.4.17
-	github.com/aws/aws-sdk-go v1.35.33
+	github.com/aws/aws-sdk-go v2.0.1
 	github.com/awslabs/goformation/v4 v4.15.6
-	github.com/buger/goterm v1.0.0
+	github.com/buger/goterm v2.0.1
 	github.com/cnabio/cnab-to-oci v0.3.1-beta1
-	github.com/compose-spec/compose-go v1.0.8
+	github.com/compose-spec/compose-go v2.0.1
 	github.com/containerd/console v1.0.2
-	github.com/containerd/containerd v1.5.10
+	github.com/containerd/containerd v2.0.1
 	github.com/distribution/distribution/v3 v3.0.0-20210316161203-a01c71e2477e
 	github.com/docker/cli v20.10.7+incompatible
 	github.com/docker/compose/v2 v2.2.0
@@ -43,7 +43,7 @@ require (
 	github.com/labstack/gommon v0.3.0 // indirect
 	github.com/mattn/go-ieproxy v0.0.1 // indirect
 	github.com/morikuni/aec v1.0.0
-	github.com/opencontainers/go-digest v1.0.0
+	github.com/opencontainers/go-digest v1.0.2
 	github.com/opencontainers/image-spec v1.0.2
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/tsdb v0.10.0
@@ -55,12 +55,12 @@ require (
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.7.0
 	github.com/valyala/fasttemplate v1.2.1 // indirect
-	golang.org/x/oauth2 v0.0.0-20210402161424-2e8d93401602
-	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	golang.org/x/sys v0.0.0-20210616094352-59db8d763f22
-	google.golang.org/grpc v1.38.0
-	google.golang.org/protobuf v1.27.1
-	gopkg.in/ini.v1 v1.62.0
+	golang.org/x/oauth2 v2.0.1-20210402161424-2e8d93401602
+	golang.org/x/sync v2.0.1-20210220032951-036812b2e83c
+	golang.org/x/sys v2.0.1-20210616094352-59db8d763f22
+	google.golang.org/grpc v2.0.1
+	google.golang.org/protobuf v2.0.1
+	gopkg.in/ini.v1 v2.0.1
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
 	gotest.tools v2.2.0+incompatible
 	gotest.tools/v3 v3.0.3
