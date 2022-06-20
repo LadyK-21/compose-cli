@@ -1,7 +1,7 @@
 name: ECS e2e integration tests
 
-  push_requests: master
-   pull_requests:  master
+ push: [ "main" ]
+ pull: [ "main" ]
 
 jobs:
   check-optional-tests:
