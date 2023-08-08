@@ -16,7 +16,7 @@ FROM golang:1.16-alpine AS build
 COPY dispatcher.go .
 RUN mkdir -p /out && go build -o /out/dispatcher dispatcher.go
 
-FROM alpine AS run
+FROM alpine:3.18.3 AS run
 EXPOSE 80
 CMD ["/dispatcher"]
 COPY static /static/
