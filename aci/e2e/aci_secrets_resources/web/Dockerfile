@@ -20,7 +20,7 @@ COPY main.go .
 RUN --mount=type=cache,target=/go/pkg/mod \
     go build -trimpath -ldflags="-s -w" -o server main.go
 
-FROM alpine
+FROM alpine:3.18.5
 RUN apk --no-cache add curl
 COPY --from=build /go/server /
 CMD /server "${PORT:-80}" "${DIR:-/run/secrets}"
